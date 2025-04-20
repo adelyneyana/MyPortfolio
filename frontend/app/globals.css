@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --accent-pink: 236, 0, 140;
+  --accent-pink-light: 255, 41, 167;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  min-height: 100vh;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #EC008C 100%);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.2) 0%, transparent 70%);
+}
+
+.sidebar-item {
+  @apply text-xs font-medium text-gray-400 py-1 hover:text-black transition-colors cursor-pointer;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  letter-spacing: 0.1em;
+}
+
+.nav-item {
+  @apply text-sm font-medium text-gray-600 transition-colors hover:text-black cursor-pointer;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  box-shadow: 0 8px 32px rgba(236, 0, 140, 0.2);
+} 

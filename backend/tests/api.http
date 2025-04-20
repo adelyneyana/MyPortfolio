@@ -1,0 +1,87 @@
+### Variables
+@baseUrl = http://localhost:5000/api
+@contentType = application/json
+
+### 1. Health Check
+# Verify if the API is running
+GET {{baseUrl}}/health
+
+### 2. Register New User
+# Create a new user account
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+    "email": "test@example.com",
+    "password": "Password123!",
+    "name": "John Doe"
+}
+
+### 3. Login User
+# Login with the created user
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+    "email": "test@example.com",
+    "password": "Password123!"
+}
+
+### 4. Register User - Invalid Email
+# Test email validation
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+    "email": "invalid-email",
+    "password": "Password123!",
+    "name": "John Doe"
+}
+
+### 5. Register User - Weak Password
+# Test password strength validation
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+    "email": "test@example.com",
+    "password": "weak",
+    "name": "John Doe"
+}
+
+### 6. Login User - Wrong Password
+# Test invalid login credentials
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+    "email": "test@example.com",
+    "password": "WrongPassword123!"
+}
+
+### Register User - Invalid Name
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "Password123!",
+    "name": "123"
+}
+
+### Login User - Non-existent Email
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "nonexistent@example.com",
+    "password": "Password123!"
+}
+
+### Register User - Missing Fields
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "email": "test@example.com"
+} 
