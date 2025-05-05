@@ -1,116 +1,74 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-interface User {
-  name: string;
-  email: string;
-}
+const projects = [
+  {
+    id: 1,
+    title: 'Project name',
+    image: '/projects/mobile-app.jpg',
+    type: 'Project type',
+  },
+  {
+    id: 2,
+    title: 'Project name',
+    image: '/projects/web-platform.jpg',
+    type: 'Project type',
+  },
+  {
+    id: 3,
+    title: 'Project name',
+    image: '/projects/portfolio.jpg',
+    type: 'Project type',
+  },
+];
 
 export default function Dashboard() {
-  const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    // Check if user is logged in
-    const storedUser = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-
-    if (!storedUser || !token) {
-      router.push('/auth/login');
-      return;
-    }
-
-    setUser(JSON.parse(storedUser));
-  }, [router]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    router.push('/');
-  };
-
-  if (!user) {
-    return null;
-  }
-
   return (
-    <div className="min-h-screen bg-white">
-      {/* Top Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white z-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <div className="w-8 h-8 rounded-full overflow-hidden">
-                <Image
-                  src="/car-logo.jpg"
-                  alt="Logo"
-                  width={32}
-                  height={32}
-                  className="object-cover"
-                />
-              </div>
-            </div>
-            <div className="flex items-center space-x-8">
-              <span className="nav-item">Home</span>
-              <span className="nav-item">About</span>
-              <span className="nav-item">Projects</span>
-              <div className="w-8 h-8 rounded-full overflow-hidden">
-                <Image
-                  src="/profile-small.jpg"
-                  alt="Profile"
-                  width={32}
-                  height={32}
-                  className="object-cover"
-                />
-              </div>
-            </div>
+    <div className="min-h-screen w-full flex flex-col items-center bg-[#3a2323]">
+      {/* Main content */}
+      <div className="w-full max-w-6xl flex-1 flex bg-gradient-to-r from-white via-white to-pink-300 relative rounded-3xl overflow-hidden shadow-2xl mt-6" style={{ minHeight: 600 }}>
+        {/* Sidebar */}
+        <div className="flex flex-col items-center justify-center px-4 py-8 space-y-4">
+          <span className="text-xs font-semibold text-pink-500 border-l-4 border-pink-500 pl-2">Hi, I am Your Name</span>
+          <div className="flex flex-col items-center space-y-4 mt-8">
+            <span className="sidebar-item bg-pink-100 text-pink-600 rounded-full px-3 py-1 text-xs font-semibold">Home</span>
+            <span className="sidebar-item bg-pink-100 text-pink-600 rounded-full px-3 py-1 text-xs font-semibold">About</span>
+            <span className="sidebar-item bg-pink-100 text-pink-600 rounded-full px-3 py-1 text-xs font-semibold">Projects</span>
+            <span className="sidebar-item bg-pink-100 text-pink-600 rounded-full px-3 py-1 text-xs font-semibold">Contact</span>
+            <span className="sidebar-item bg-pink-100 text-pink-600 rounded-full px-3 py-1 text-xs font-semibold">Skills</span>
           </div>
         </div>
-      </nav>
-
-      {/* Side Navigation */}
-      <div className="fixed left-4 top-1/2 -translate-y-1/2 space-y-6">
-        <span className="sidebar-item">Home</span>
-        <span className="sidebar-item">About</span>
-        <span className="sidebar-item">Projects</span>
-        <span className="sidebar-item">Contact</span>
-        <span className="sidebar-item">Skills</span>
+        {/* Hero Section */}
+        <div className="flex-1 flex flex-col justify-center px-8 py-12">
+          <h1 className="text-7xl font-bold text-black leading-tight mb-4">Your<br />skill<br />here</h1>
+          <div className="h-1 w-16 bg-pink-400 rounded-full mb-4" />
+          <span className="text-md text-gray-700 font-medium">Your works here ........</span>
+        </div>
+        {/* Project Section with Pink Shape */}
+        <div className="relative w-[420px] flex-shrink-0 flex flex-col items-center justify-start pt-8 pb-12 px-6" style={{ zIndex: 1 }}>
+          {/* Pink shape background */}
+          <div className="absolute inset-0 -z-10" style={{ borderTopLeftRadius: '200px', borderTopRightRadius: '200px', borderBottomRightRadius: '200px', background: 'linear-gradient(135deg, #EC008C 0%, #FF29A7 100%)' }} />
+          <h2 className="text-lg font-bold text-black text-center mb-6 mt-2 tracking-widest">PROJECT</h2>
+          <div className="flex flex-col space-y-8 w-full">
+            {projects.map((project) => (
+              <div key={project.id} className="bg-white/80 rounded-xl shadow-lg overflow-hidden">
+                <div className="w-full h-36 relative">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-bold text-pink-700 mb-1">{project.title}</h3>
+                  <p className="text-xs text-pink-400 mb-2">{project.type}</p>
+                  <span className="text-xs text-pink-500 font-semibold float-right cursor-pointer">Detail</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 pt-24">
-        <div className="hero-gradient min-h-[500px] p-12 flex items-center justify-between">
-          <div className="max-w-xl">
-            <p className="text-sm mb-2">Hi, I am {user.name}</p>
-            <h1 className="text-7xl font-bold mb-6">Your skill here</h1>
-            <p className="text-gray-600 max-w-lg">
-              I create sfabkwjphtv lkj$tjervg kmn's kmgkl n jruegem lefgj'zh eflyko jery jry keny ey neyh kjerj sey eyjn kry yjfly r'rlk por ory r jlrk ry jy kjd alm djd'rt 'try ndjd py dry fdnsyoy ky n djr.o r jkdxj .dkrjsd ty dj.dj djydk dk .jdy d piky kdynrk r.tobkhfnj dj odijv kfndy vj.
-            </p>
-          </div>
-          <div className="relative">
-            <div className="profile-image overflow-hidden">
-              <Image
-                src="/profile-large.jpg"
-                alt="Profile"
-                width={300}
-                height={300}
-                className="object-cover"
-                priority
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Circular Text */}
-        <div className="fixed bottom-8 right-8">
-          <div className="w-24 h-24 rounded-full border-2 border-pink-500 flex items-center justify-center">
-            <span className="text-xs text-pink-500">PROVEHRS 1.9</span>
-          </div>
-        </div>
-      </main>
     </div>
   );
 } 

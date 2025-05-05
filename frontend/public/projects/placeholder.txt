@@ -1,0 +1,9 @@
+Please add the following images to this directory:
+- mobile-app.jpg
+- web-platform.jpg
+- responsive.jpg
+- ecommerce.jpg
+- portfolio.jpg
+- game-ui.jpg
+
+These should be high-quality images related to each project category. 
